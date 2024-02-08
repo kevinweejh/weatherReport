@@ -5,3 +5,9 @@ export const createElement = (element, classList, content, id=null) => {
     if (id) {newElement.id = id}; // Add id if provided
     return newElement;
 }
+
+export const appendMultipleChildren = (parent, ...children) => {
+    children.forEach((child) => {
+      parent.appendChild(child);
+    });
+  };
