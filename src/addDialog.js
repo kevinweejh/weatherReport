@@ -1,5 +1,6 @@
 import { createElement, appendMultipleChildren } from "./utils";
 import AddCountryList from './addCountryList';
+import CheckWeather from './checkWeather';
 
 export default () => {
   const container = document.querySelector("body");
@@ -36,6 +37,10 @@ export default () => {
     "Submit",
     'submitBtn'
   )
+  submitBtn.addEventListener('click', () => {
+    CheckWeather(citySelector.value);
+    dialog.close();
+  })
 
   appendMultipleChildren(form, countrySelector, citySelector, submitBtn);
   dialog.appendChild(form);
