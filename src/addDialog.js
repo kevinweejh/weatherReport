@@ -50,13 +50,14 @@ export default () => {
 
   const submitBtn = createElement(
     "btn", 
-    ['w-full', 'p-2.5', 'my-2.5', 'border', 'rounded-2xl', 'text-white', 'bg-blue-200', 'hover:bg-white', 'hover:text-blue-200', 'cursor-pointer'],
+    ['w-full', 'p-2.5', 'my-2.5', 'border', 'rounded-2xl', 'text-white', 'bg-blue-600', 'hover:bg-blue-500', 'hover:text-gray-200', 'cursor-pointer'],
     "Submit",
     'submitBtn'
   )
   submitBtn.addEventListener('click', () => {
     CheckWeather(citySelector.value);
     dialog.close();
+    dialog.dispatchEvent(new Event('formSubmit'));
   })
 
   appendMultipleChildren(form, countrySelector, citySelector, submitBtn);
