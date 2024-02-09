@@ -1,7 +1,7 @@
 import DisplayWeatherInfo from './displayWeatherInfo';
 
 export default (city) => {
-    const baseUrl = 'http://api.weatherapi.com/v1/current.json?key=d379543822bd447c8b471126240702&aqi=no&q=';
+    const baseUrl = 'https://api.weatherapi.com/v1/current.json?key=d379543822bd447c8b471126240702&aqi=no&q=';
 
     const getWeatherData = async (city) => {
         const response = await fetch(`${baseUrl}${city}`);
