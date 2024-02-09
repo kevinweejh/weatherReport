@@ -1,18 +1,38 @@
 import { createElement, appendMultipleChildren } from "./utils";
 
 export default (weatherInfo) => {
-    const [temp_c, temp_f, condition] = weatherInfo;
+    const [location, temp_c, temp_f, cond_text, cond_icon] = weatherInfo;
 
     const weatherReport = createElement('dialog', ['border', 'border-gray-500', 'rounded-2xl', 'p-5', 'w-96', 'm-auto'], '', 'weatherReport');
     const formReport = createElement(
         "form",
         ['text-lg', 'font-bold', 'mb-5', 'flex', 'flex-col', 'text-center'],
-        "Weather Report"
+        `Weather Report for ${location}`
       );
     formReport.setAttribute('method', 'dialog');
 
     const temp = createElement('p', ['text-base', 'font-normal', 'my-5'], `Temperature: ${temp_c}°C`);
-    const cond = createElement('p', ['text-base', 'font-normal', 'my-5'], `Condition:   ${condition}`);
+    const condText = createElement('p', ['text-base', 'font-normal', 'my-5'], `Condition:   ${cond_text}`);
+    
+    function getImageSrc(condIconNumber) {
+        const images = require.context('./day', false, /\.(png|svg|jpg|jpeg|gif)$/);
+        try {
+            const imagePath = images(`./${condIconNumber}.png`);
+            return imagePath;
+        } catch (error) {
+            console.error('Image not found:', error);
+            return null;
+        }
+    }
+    
+    const condIcon = createElement('img', ['w-16', 'mx-auto', 'my-2.5'], '');
+    const condIconNumber = cond_icon.slice(-7, -4);
+    const imageSrc = getImageSrc(condIconNumber);
+    if (imageSrc) {
+        condIcon.src = imageSrc;
+    } else {
+        console.error('Image source not found for', cond_icon);
+    }
 
     const celsiusBtn = createElement('input', ['m-2', 'z-10'], '°C');
     celsiusBtn.setAttribute('name', 'unitOption');
@@ -32,7 +52,7 @@ export default (weatherInfo) => {
     const btnLabels = createElement('pre', ['text-center', 'absolute', 'whitespace-pre', 'font-sans'], '°C              °F');
 
     appendMultipleChildren(btnDiv, celsiusBtn, fahrenheitBtn, btnLabels);
-    appendMultipleChildren(formReport, temp, btnDiv, cond, closeBtn)
+    appendMultipleChildren(formReport, temp, btnDiv, condText, condIcon, closeBtn)
     weatherReport.appendChild(formReport);  
     const container = document.querySelector("body");
     container.appendChild(weatherReport);

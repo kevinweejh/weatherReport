@@ -6,9 +6,9 @@ export default (city) => {
     const getWeatherData = async (city) => {
         const response = await fetch(`${baseUrl}${city}`);
         const weatherData = await response.json();
-        const [temp_c, temp_f, condition] = [weatherData.current.temp_c, weatherData.current.temp_f, weatherData.current.condition.text];
+        const [location, temp_c, temp_f, cond_text, cond_icon] = [weatherData.location.name, weatherData.current.temp_c, weatherData.current.temp_f, weatherData.current.condition.text, weatherData.current.condition.icon];
 
-        return [temp_c, temp_f, condition];
+        return [location, temp_c, temp_f, cond_text, cond_icon];
     }
 
     getWeatherData(city).then(
