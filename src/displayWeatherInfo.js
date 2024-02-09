@@ -16,8 +16,11 @@ export default (weatherInfo) => {
     fahrenheitBtn.setAttribute('name', 'unitOption');
     fahrenheitBtn.setAttribute('value', '°F');
     fahrenheitBtn.setAttribute('type', 'radio');
+
+    const closeBtn = createElement('btn', [], 'Done');
+    closeBtn.addEventListener('click', () => weatherReport.close());
     
-    appendMultipleChildren(weatherReport, temp, celsiusBtn, fahrenheitBtn, cond); 
+    appendMultipleChildren(weatherReport, temp, celsiusBtn, fahrenheitBtn, cond, closeBtn); 
     const container = document.querySelector("body");
     container.appendChild(weatherReport);
 
